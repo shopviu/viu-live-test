@@ -20,9 +20,13 @@
           :key="`step-content-${index}`"
           :step="index + 1"
         >
-          <div class="component-name">
+          <v-alert
+            type="info"
+            class="component-name"
+            color="blue"
+          >
             Component: <code>ExtendedForms/{{ `${step.slug[0].toUpperCase()}${step.slug.substring(1)}` }}.vue</code>
-          </div>
+          </v-alert>
           <component
             :is="`extended-forms-${step.slug}`"
             v-model="userInput"
