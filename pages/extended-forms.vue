@@ -20,10 +20,25 @@
           :key="`step-content-${index}`"
           :step="index + 1"
         >
-          {{ step.slug }}
+          <div class="component-name">
+            Component: <code>ExtendedForms/{{ `${step.slug[0].toUpperCase()}${step.slug.substring(1)}` }}.vue</code>
+          </div>
+          <component
+            :is="`extended-forms-${step.slug}`"
+            v-model="userInput"
+          />
           <v-card>
             <v-card-actions>
               <v-btn
+                v-if="currentStep > 1"
+                color="secondary"
+                @click="onPrev"
+              >
+                Previous
+              </v-btn>
+              <v-spacer />
+              <v-btn
+                v-if="currentStep < steps.length"
                 color="primary"
                 @click="onNext"
               >
@@ -45,17 +60,6 @@ interface ExtendedFormStep {
   headline?: string;
 }
 
-interface ExtendedFormData {
-  firstName: string | null;
-  lastName: string | null;
-  address: {
-    city: string | null;
-    country: string | null;
-    street: string | null;
-    zip: string | null;
-  };
-}
-
 @Component
 export default class PagesExtendedForms extends Vue {
   private currentStep = 1;
@@ -73,16 +77,20 @@ export default class PagesExtendedForms extends Vue {
       slug: 'address',
       headline: 'Address',
     },
+    {
+      slug: 'summary',
+      headline: 'Summary',
+    },
   ];
 
   private userInput: ExtendedFormData = {
-    firstName: null,
-    lastName: null,
+    firstName: 'John',
+    lastName: 'Doe',
     address: {
-      city: null,
-      country: null,
-      street: null,
-      zip: null,
+      city: 'Placeholderburg',
+      country: 'Samplestan',
+      street: 'Example Street 123',
+      zip: '54321',
     },
   };
 
@@ -92,5 +100,18 @@ export default class PagesExtendedForms extends Vue {
       this.currentStep = 1;
     }
   }
+
+  private onPrev() {
+    this.currentStep -= 1;
+    if (this.currentStep < 1) {
+      this.currentStep = this.steps.length;
+    }
+  }
 }
 </script>
+
+<style scoped>
+.component-name {
+  margin-bottom: 2em;
+}
+</style>
