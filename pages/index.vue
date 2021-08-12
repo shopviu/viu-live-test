@@ -15,7 +15,7 @@
           <v-btn
             color="primary"
             nuxt
-            to="/inspire"
+            to="/extended-forms"
           >
             Continue
           </v-btn>
