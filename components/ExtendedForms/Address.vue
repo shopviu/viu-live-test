@@ -25,7 +25,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import { cloneDeep } from 'lodash'
+import { cloneDeep } from 'lodash';
 
 @Component
 export default class ExtendedFormsAddress extends Vue {
